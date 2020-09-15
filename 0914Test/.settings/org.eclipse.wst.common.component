@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                
+                    
     
     
-    <wb-module deploy-name="JSPTest">
-                                
+    
+    <wb-module deploy-name="0914Test">
+                                        
+        
         
         
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-                                
+                                        
+        
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-                                
+                                        
         
         
-        <property name="java-output-path" value="/JSPTest/build/classes"/>
-        <property name="context-root" value="JSPTest"/>
-                            
+        
+        <property name="java-output-path" value="/0914Test/build/classes"/>
+        <property name="context-root" value="0914Test"/>
+                                    
+    
     
     
     </wb-module>
-            
+                
+
 
 
 </project-modules>
