@@ -15,7 +15,7 @@
 전화번호 : <input type="text" name="memPhone"><br>
 이메일 : <input type="text" name="memEmail"><br>
 주소 : <input type="text" name="memAddr"><br>
-<div><input type="submit" value="등록"></div>
+<input type="submit" value="등록">
 </form>
 </body>
 </html>
