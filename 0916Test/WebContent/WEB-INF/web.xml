@@ -30,4 +30,12 @@
 		<error-code>500</error-code>
 		<location>/error/error500.jsp</location>
 	</error-page>
+	
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>/view/*</url-pattern>
+			<include-prelude>/common/variable.jspf</include-prelude>
+			<include-coda>/common/footer.jspf</include-coda>
+		</jsp-property-group>
+	</jsp-config>
 </web-app>
