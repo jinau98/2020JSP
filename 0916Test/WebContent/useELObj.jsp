@@ -18,7 +18,7 @@ memberId 파라미터 : ${param.memId}<br>
 ${"10"+1}<br>					<!-- 문자열 타입으로 숫자가 들어와도 숫자로 판단해서 계산함 -->
 ${null+1}<br>
 ${3/2}<br>						<!-- / 나누기는 div로 대체해서 사용 가능(굳...ㅇ...ㅣ.....?) -->
-${3 div 2}<br/>
+<!-- ${3 div 2}<br/>-->
 ${"문자" +="열"}<br>
 ${"JAVA"}${"Programming"}<br>
 ${empty param.code}<br>
