@@ -21,8 +21,9 @@ public class DBCPInit extends HttpServlet {
 	}
 	
 	private void loadJDBCDriver() {
+		String driverClass = getInitParameter("jdbcdriver");
 	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
+		Class.forName(driverClass);
 		System.out.println("드라이버 로드");
 	}catch(ClassNotFoundException ex) {
 		throw new RuntimeException("fail to load JDBC Driver", ex);
@@ -30,9 +31,9 @@ public class DBCPInit extends HttpServlet {
 	}
 	private void initConnectionPool() {
 		try {
-			String jdbcUrl = "jdbc:mysql://localhost:3306/jdbc_ex?serverTimezone=UTC&useSSL=false&characterEncoding=UTF-8&useUnicode=true";
-			String username = "root";
-			String pw = "admin";
+			String jdbcUrl = getInitParameter("jdbcUrl");
+			String username = getInitParameter("dbUser");
+			String pw = getInitParameter("dbPass");
 			
 			ConnectionFactory connFactory = new DriverManagerConnectionFactory(jdbcUrl, username, pw);
 			
@@ -54,7 +55,8 @@ public class DBCPInit extends HttpServlet {
 			//커넥션 풀을 제공하는 JDBC 드라이버 로딩
 			Class.forName("org.apache.commons.dbcp2.PoolingDriver");
 			PoolingDriver driver = (PoolingDriver) DriverManager.getDriver("jdbc:apache:commons:dbcp:");
-			driver.registerPool("MEM", connectionPool);
+			String poolName = getInitParameter("poolName");
+			driver.registerPool(poolName, connectionPool);
 		}catch (Exception e){
 			throw new RuntimeException(e);
 		}
