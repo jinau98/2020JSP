@@ -74,4 +74,27 @@
 	<url-pattern>/controllerUsingFile</url-pattern>
 	</servlet-mapping>
 	
+	<filter>
+		<filter-name>LoginCheck</filter-name>
+		<filter-class>filter.LoginCheckFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>LoginCheck</filter-name>
+		<url-pattern>/board/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+	<filter-name>encodingFilter</filter-name>
+	<filter-class>util.CharacterEncodingFilter</filter-class>
+	<init-param>
+	<param-name>encoding</param-name>
+	<param-value>utf-8</param-value>
+	</init-param>
+	</filter>
+	
+	<filter-mapping>
+	<filter-name>encodingFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
