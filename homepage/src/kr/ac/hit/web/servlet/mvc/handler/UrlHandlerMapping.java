@@ -31,6 +31,6 @@ public class UrlHandlerMapping {
 	}
 	
 	public static Controller getHandler(String uri) {
-		return null;
+		return handlerMap.get(uri);
 	}
 }

@@ -2,6 +2,7 @@ package kr.ac.hit.member.service.impl;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import kr.ac.hit.common.jdbc.ConnectionProvider;
 import kr.ac.hit.member.dao.MemberDao;
@@ -23,13 +24,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public List<Member> getMemberList() throws Exception{
+	public List<Member> getMemberList(Map<String, Object> paramMap) throws Exception{
 		Connection conn = null;
 		List<Member> memberList = null;
 		
 		try {
 		conn = ConnectionProvider.getConnection();
-		memberList = memberDao.selectMemberList(conn);
+		memberList = memberDao.selectMemberList(conn, paramMap);
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -40,5 +41,22 @@ public class MemberServiceImpl implements MemberService{
 		
 		//이제 Controller에서는 Service 통해서 Dao의 결과를 받아올 수 있게 됨!
 		//controller, dao 등등을 java로 코딩해서 사용하는게 EJB 방식
+	}
+
+	@Override
+	public Member getMember(Map<String, Object> paramMap) throws Exception {
+		Connection conn = null;
+		Member member = null;
+		
+		try {
+		conn = ConnectionProvider.getConnection();
+		member = memberDao.selectMember(conn, paramMap);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			conn.close();
+		}
+		return member;
 	}
 }

@@ -15,9 +15,8 @@ public class DispatcherServlet extends HttpServlet{
 	public void init() throws ServletException {
 		String contextConfigLocation = getInitParameter("contextConfigLocation");
 		String configFilePath = getServletContext().getRealPath(contextConfigLocation);
-		
 		try {
-			UrlHandlerMapping.init(configFilePath);
+			UrlHandlerMapping.init(configFilePath);			//초기화
 		} catch (Exception e) {
 			throw new ServletException();
 		}
@@ -43,11 +42,11 @@ public class DispatcherServlet extends HttpServlet{
 		}
 		System.out.println(uri);
 		
+		// memberListController의 인스턴스 받아오기
 		Controller controller = UrlHandlerMapping.getHandler(uri);
 		
 		if(controller != null) {
 			String viewPage = null;
-			
 			try {
 				viewPage = controller.process(req, resp);
 			} catch (Exception e) {
