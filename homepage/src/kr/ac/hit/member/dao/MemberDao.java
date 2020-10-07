@@ -144,4 +144,93 @@ public class MemberDao {
 
 		return member;
 	}
+
+	public int insertMember(Connection conn, Member member) throws Exception {
+		StringBuffer query = new StringBuffer();
+
+		query.append("insert into tb_member "); // seqNo는 자동증가시켜놨기 때문에 insert 하지 않아도 자동 입력됨
+		query.append("	(					");
+		query.append("	mem_id         		");
+		query.append(", mem_name      	 	");
+		query.append(", mem_pwd        		");
+		query.append(", mem_birth      		");
+		query.append(", mem_phone      		");
+		query.append(", mem_email      		");
+		query.append(", mem_zipcode    		");
+		query.append(", mem_addr_master		");
+		query.append(", mem_addr_detail		");
+		query.append(") values (	   		");
+		query.append("?						");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append(", ?					");
+		query.append("	)					");
+		// (Oracle은 seqNo 사용 시 꼭 다음에 올 숫자를 insert문 안에 지정해줘야 함)
+
+		PreparedStatement pstmt = conn.prepareStatement(query.toString());
+
+		int i = 1;
+		pstmt.setString(i++, member.getMem_id());
+		pstmt.setString(i++, member.getMem_name());
+		pstmt.setString(i++, member.getMem_pwd());
+		pstmt.setString(i++, member.getMem_birth());
+		pstmt.setString(i++, member.getMem_phone());
+		pstmt.setString(i++, member.getMem_email());
+		pstmt.setString(i++, member.getMem_zipcode());
+		pstmt.setString(i++, member.getMem_addr_master());
+		pstmt.setString(i++, member.getMem_addr_detail());
+
+		int updCnt = pstmt.executeUpdate();
+
+		return updCnt;
+	}
+
+	public int updateMember(Connection conn, Member member) throws Exception {
+		StringBuffer query = new StringBuffer();
+
+		query.append("update tb_member set  ");
+		query.append(" mem_name=?,       	");
+		query.append(" mem_pwd=?,       	");
+		query.append(" mem_birth=?,      	");
+		query.append(" mem_phone=?,      	");
+		query.append(" mem_email=?,     	");
+		query.append(" mem_zipcode=?, 	   	");
+		query.append(" mem_addr_master=?,	");
+		query.append(" mem_addr_detail=?	");
+		query.append(" where mem_seq_no =?  ");
+
+		PreparedStatement pstmt = conn.prepareStatement(query.toString());
+
+		int i = 1;
+		pstmt.setString(i++, member.getMem_name());
+		pstmt.setString(i++, member.getMem_pwd());
+		pstmt.setString(i++, member.getMem_birth());
+		pstmt.setString(i++, member.getMem_phone());
+		pstmt.setString(i++, member.getMem_email());
+		pstmt.setString(i++, member.getMem_zipcode());
+		pstmt.setString(i++, member.getMem_addr_master());
+		pstmt.setString(i++, member.getMem_addr_detail());
+		pstmt.setInt(i++, member.getMem_seq_no());
+
+		int updCnt = pstmt.executeUpdate();
+
+		return updCnt;
+	}
+	
+	public int deleteMember(Connection conn, String seqNo) throws Exception{
+		StringBuffer query = new StringBuffer();
+		query.append("delete from tb_member where mem_seq_no=?");
+		
+		PreparedStatement pstmt = conn.prepareStatement(query.toString());
+		
+		pstmt.setString(1, seqNo);
+		
+		int updCnt = pstmt.executeUpdate();
+		return updCnt;
+	}
 }

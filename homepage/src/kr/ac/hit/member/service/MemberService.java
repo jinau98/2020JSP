@@ -12,4 +12,11 @@ public interface MemberService {
 	
 	//회원정보 조회(한개)
 	public Member getMember(Map<String, Object> paramMap) throws Exception;
+	
+	public int insertMember(Member member) throws Exception;
+	
+	public int updateMember(Member member) throws Exception;
+	
+	public int deleteMember(String seqNo) throws Exception;
+
 }
