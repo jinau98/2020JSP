@@ -22,5 +22,19 @@
 		</script>
 	</c:if>
 
+<!-- 로그인창에서 -->
+	<c:if test="${not empty message}">
+		<script>
+			alert("${message}");
+			history.go(-1);
+		</script>
+	</c:if>
+	<c:if test="${empty message}">
+		<script>
+			alert('환영합니다.');
+			location.href = "'${request.getContextPath()}'/member/memberList.do";
+		</script>
+	</c:if>
+
 </body>
 </html>

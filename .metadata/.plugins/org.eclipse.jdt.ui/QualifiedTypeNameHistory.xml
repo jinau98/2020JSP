@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.apache.tomcat.dbcp.dbcp2.DriverManagerConnectionFactory"/>
     <fullyQualifiedTypeName name="org.apache.commons.dbcp2.ConnectionFactory"/>
     <fullyQualifiedTypeName name="org.apache.commons.dbcp2.DriverManagerConnectionFactory"/>
     <fullyQualifiedTypeName name="org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig"/>
@@ -40,24 +39,25 @@
     <fullyQualifiedTypeName name="java.io.FileReader"/>
     <fullyQualifiedTypeName name="java.util.Iterator"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-    <fullyQualifiedTypeName name="kr.ac.hit.member.dao.MemberDao"/>
     <fullyQualifiedTypeName name="sun.security.jca.GetInstance"/>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="kr.ac.hit.common.jdbc.ConnectionProvider"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.apache.commons.collections.map.HashedMap"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
-    <fullyQualifiedTypeName name="kr.ac.hit.web.servlet.mvc.Controller"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="kr.ac.hit.member.service.MemberService"/>
-    <fullyQualifiedTypeName name="kr.ac.hit.member.service.impl.MemberServiceImpl"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
-    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="kr.ac.hit.member.dao.MemberDao"/>
     <fullyQualifiedTypeName name="kr.ac.hit.member.model.Member"/>
+    <fullyQualifiedTypeName name="org.apache.commons.beanutils.BeanUtils"/>
+    <fullyQualifiedTypeName name="kr.ac.hit.member.service.impl.MemberServiceImpl"/>
+    <fullyQualifiedTypeName name="kr.ac.hit.member.service.MemberService"/>
     <fullyQualifiedTypeName name="java.lang.StringBuffer"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="kr.ac.hit.web.servlet.mvc.Controller"/>
 </qualifiedTypeNameHistroy>

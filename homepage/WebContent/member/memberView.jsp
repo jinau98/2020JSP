@@ -7,7 +7,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap.css">
 <meta charset="UTF-8">
-<title>MEMBER VIEW</title>
+<title>${member.mem_name}님</title>
 </head>
 <body>
 	<div class="container">

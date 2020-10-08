@@ -43,28 +43,32 @@ public class MemberDao {
 			query.append(" where 1=1 "); // 전체목록 조회하는 where절
 
 			// if문으로 검색 기능에 사용되는 조건 추가함
-
-			if (condition != null && !condition.isEmpty()) {
-				if ("id".equals(condition.get("searchType"))) { // searchType에 값이 있는지 없는지 체크하고 조건문 실행
-					query.append(" AND mem_id = ? "); // pstmt 사용 중이기 때문에 바인딩변수 "?" 사용
-				} else if ("name".equals(condition.get("searchType"))) {
-					query.append(" AND mem_name like concat ('%', ?, '%')"); // concat은 문장을 이어주는 역할. '%' 와일드카드 - 문장이 여러
-																				// 개 있어도 ?이 포함돼있으면 검색해줌
-				}
-			}
-
-			query.append(" order by mem_seq_no desc");
+			if(condition != null && !condition.isEmpty()) {
+	            if(condition.containsKey("mem_seq_no")) {
+	               query.append("  AND mem_seq_no = ?");
+	            }else if(condition.containsKey("memId")) {
+	               query.append("  AND mem_id = ?");
+	            }
+	            if(condition.containsKey("memPwd")) {
+	               query.append("  AND mem_pwd = ?");
+	            }
+	         }
 
 			PreparedStatement pstmt = conn.prepareStatement(query.toString());
 
-			int i = 1; // 바인딩하는 수
+			int i = 1;
 			if (condition != null && !condition.isEmpty()) {
-				if ("id".equals(condition.get("searchType"))) {
-					pstmt.setString(i++, (String) condition.get("searchWord")); // seachWord는 Object 타입이기 때문에 캐스팅 필요
-				} else if ("name".equals(condition.get("searchType"))) {
-					pstmt.setString(i++, (String) condition.get("searchWord"));
+				if (condition.containsKey("mem_seq_no")) {
+					pstmt.setInt(i++, (int) condition.get("mem_seq_no"));
+				}else if(condition.containsKey("memId")) {
+					pstmt.setString(i++, (String)condition.get("memId"));
+				}
+				
+				if(condition.containsKey("memPwd")) {
+					pstmt.setString(i++, (String)condition.get("memPwd"));
 				}
 			}
+
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -108,18 +112,29 @@ public class MemberDao {
 		query.append(" from tb_member  ");
 		query.append(" where 1=1 ");
 
-		if (condition != null && !condition.isEmpty()) {
-			if (condition.containsKey("mem_seq_no")) {
-				query.append(" and mem_seq_no = ? ");
-			}
-		}
+		if(condition != null && !condition.isEmpty()) {
+            if(condition.containsKey("mem_seq_no")) {
+               query.append("  AND mem_seq_no = ?");
+            }else if(condition.containsKey("memId")) {
+               query.append("  AND mem_id = ?");
+            }
+            if(condition.containsKey("memPwd")) {
+               query.append("  AND mem_pwd = ?");
+            }
+         }
 
 		PreparedStatement pstmt = conn.prepareStatement(query.toString());
 
 		int i = 1;
 		if (condition != null && !condition.isEmpty()) {
 			if (condition.containsKey("mem_seq_no")) {
-				pstmt.setInt(i, (int) condition.get("mem_seq_no"));
+				pstmt.setInt(i++, (int) condition.get("mem_seq_no"));
+			}else if(condition.containsKey("memId")) {
+				pstmt.setString(i++, (String)condition.get("memId"));
+			}
+			
+			if(condition.containsKey("memPwd")) {
+				pstmt.setString(i++, (String)condition.get("memPwd"));
 			}
 		}
 
@@ -233,4 +248,6 @@ public class MemberDao {
 		int updCnt = pstmt.executeUpdate();
 		return updCnt;
 	}
+
+
 }

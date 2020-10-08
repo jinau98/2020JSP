@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.css">
 <script>
 	function goViewPage(seqNo){
 		location.href="memberView.do?seqNo="+seqNo;
@@ -39,6 +40,14 @@
 		</form>
 		<!-- /검색 -->
 		<p align="right">
+			<c:if test="${empty sessionScope.LOGIN_USER }">
+				<input type="button" value="로그인" class="btn btn-default"
+					onclick="location.href='/login/loginForm.do'">
+			</c:if>
+			<c:if test="${not empty sessionScope.LOGIN_USER }">
+				<input type="button" value="로그아웃" class="btn btn-default"
+					onclick="location.href='/login/logout.do'">
+			</c:if>
 			<input type="button" value="회원가입" class="btn btn-default"
 				onclick="location.href='memberForm.do'">
 		<table class="table table-bordered table-hover">
@@ -55,13 +64,15 @@
 				<c:if test="${not empty memberList}">
 					<c:forEach var="member" items="${memberList}">
 
-						<c:url var="viewURL" value="memberView.do">						<!-- 상세보기 url -->
+						<c:url var="viewURL" value="memberView.do">
+							<!-- 상세보기 url -->
 							<c:param name="seqNo" value="${member.mem_seq_no}" />
 						</c:url>
 						<tr onclick="goViewPage(${member.mem_seq_no})">
 							<td>${member.mem_seq_no}</td>
 							<td>${member.mem_id}</td>
-							<td><a href="${viewURL }">${member.mem_name}</a></td>		<!-- c태그로 만들어준 url 넣어주기 -->
+							<td><a href="${viewURL }">${member.mem_name}</a></td>
+							<!-- c태그로 만들어준 url 넣어주기 -->
 							<td>${member.mem_phone}</td>
 							<td>${member.mem_email}</td>
 						</tr>
