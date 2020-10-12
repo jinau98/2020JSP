@@ -40,7 +40,7 @@ public class LoginCheckFilter implements Filter{
 		String uri = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 		
 		if(!excludeURI.contains(uri) && session.getAttribute("LOGIN_USER") ==null) {						//()안의 값이 있는지 없는지 확인하는 contains
-			httpResponse.sendRedirect(httpRequest.getContextPath()+"/login/loginForm.jsp");
+			httpResponse.sendRedirect(httpRequest.getContextPath()+"/login/loginForm.do");
 		}else {
 			System.out.println("LoginCheckFilter Session : "+ session.getAttribute("LOGIN_USER"));
 			chain.doFilter(request, response);

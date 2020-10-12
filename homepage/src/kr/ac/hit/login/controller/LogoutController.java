@@ -11,18 +11,16 @@ public class LogoutController implements Controller{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		System.out.println("로그아웃 컨트롤러");
 		HttpSession session = request.getSession();
 
-		request.setCharacterEncoding("utf-8");
-		String message = null;
-		System.out.println("로그아웃 전 : " + session.getAttribute("LOGIN_USER"));
-		if (session.getAttribute("LOGIN_USER") != null) {
-			session.removeAttribute("LOGIN_USER");
-		}
-		System.out.println("로그아웃 후 : " + session.getAttribute("LOGIN_USER"));
-		
-		String viewPage = "/login/loginForm.jsp";
-		return viewPage;
+		 if(session.getAttribute("LOGIN_USER") != null){
+	         session.removeAttribute("LOGIN_USER");
+	      }
+	      String viewPage = "/login/loginForm.do";
+	      return viewPage;
+	   }
+
 	}
 	
-}
+

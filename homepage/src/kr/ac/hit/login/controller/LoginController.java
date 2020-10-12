@@ -32,19 +32,30 @@ public class LoginController implements Controller{
 		Member member = memberService.getMember(condition);
 		
 		
-		String message = null;
+		String viewPage = "";
+		String message = "";
+		boolean isError = false;
+		
+	    String locationURL = request.getContextPath() + "/member/memberList.do";
+
 		if(member != null){
-			if(mem_pwd.equals(member.getMem_pwd())){
-				session.setAttribute("LOGIN_USER", member);					//member로 불러온 비밀번호와 입력된 비밀번호가 맞으면 세션에 저장
-			}else{
-				message="잘못된 비밀번호입니다.";
-			}
+			 if(mem_pwd.equals(member.getMem_pwd())){
+		         message = "로그인 성공!!";
+		         session.setAttribute("LOGIN_USER", member);
+		         viewPage = "/common/message.jsp";
+		         isError = false;
+		         }
 		}else{
-			message="존재하지 않는 아이디입니다.";
+			 message = "해당 정보 존재하지 않습니다!";
+	         isError = true;
 		}
 
-		String viewPage = "/member/memberList.jsp";
-		return viewPage;
+		 request.setAttribute("message", message);
+	     request.setAttribute("locationURL", locationURL);
+	     request.setAttribute("isError", isError);
+	      
+	     return viewPage;
+
 	}
 	
 }
