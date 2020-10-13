@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.unnij.member.dao.MemberDAO">
+
+	<select id="selectMemberTest" resultType="memberVO">		<!-- mybatis-config.xml에서 지정한 alias로 불러오기 와우 굳 -->
+		SELECT MEM_ID, MEM_NAME, MEM_EMAIL FROM TB_MEMBER
+	</select>		<!-- 장점 : 그대로 workbench에 복붙해서 맞는 쿼리인지 확인도 가능하다 -->
+	
+</mapper>
