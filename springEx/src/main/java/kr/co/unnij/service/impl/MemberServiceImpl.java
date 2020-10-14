@@ -1,6 +1,8 @@
 package kr.co.unnij.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +18,17 @@ public class MemberServiceImpl implements MemberService{
 	
 	public ArrayList<MemberVO> selectMemberTest() throws Exception{
 		return memberDao.selectMemberTest();
+	}
+
+	@Override
+	public List<MemberVO> getMemberList(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return memberDao.selectMemberList(paramMap);
+	}
+
+	@Override
+	public int getMemberCount() throws Exception {
+		// TODO Auto-generated method stub
+		return memberDao.selectMemberCount();
 	}
 }
