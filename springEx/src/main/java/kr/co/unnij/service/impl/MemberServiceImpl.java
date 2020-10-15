@@ -12,11 +12,11 @@ import kr.co.unnij.member.model.MemberVO;
 import kr.co.unnij.service.MemberService;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberDAO memberDao;
-	
-	public ArrayList<MemberVO> selectMemberTest() throws Exception{
+
+	public ArrayList<MemberVO> selectMemberTest() throws Exception {
 		return memberDao.selectMemberTest();
 	}
 
@@ -27,8 +27,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int getMemberCount() throws Exception {
+	public int getMemberCount(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
-		return memberDao.selectMemberCount();
+		return memberDao.selectMemberCount(paramMap);
+		
+	}
+	@Override
+	public MemberVO getMember(Map<String, Object> paramMap) throws Exception{
+		return memberDao.selectMember(paramMap);
 	}
 }

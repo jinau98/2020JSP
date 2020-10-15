@@ -15,6 +15,7 @@ public interface MemberService {
 	public List<MemberVO> getMemberList(Map<String, Object> paramMap) throws Exception;
 	
 	//전체 회원 수
-	public int getMemberCount() throws Exception;
-	
+	public int getMemberCount(Map<String, Object> paramMap) throws Exception;
+
+	public MemberVO getMember(Map<String, Object> paramMap) throws Exception;
 }
