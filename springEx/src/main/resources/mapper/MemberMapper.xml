@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.unnij.member.dao.MemberDAO">
-
 	<select id="selectMemberTest" resultType="memberVO">		<!-- mybatis-config.xml에서 지정한 alias로 불러오기 와우 굳 -->
 		SELECT MEM_ID, MEM_NAME, MEM_EMAIL FROM TB_MEMBER
 	</select>		<!-- 장점 : 그대로 workbench에 복붙해서 맞는 쿼리인지 확인도 가능하다 -->
-
-	<select id="selectMemberCount" parameterType="map" resultType="int">
+	
+	<select id="selectMemberCount" parameterType="map"
+		resultType="int">
 		SELECT COUNT(*) FROM TB_MEMBER WHERE 1=1
 		<if test="searchWord != null and searchWord != ''">
 			<if test="searchType =='id'">
@@ -17,7 +17,7 @@
 			</if>
 		</if>
 	</select>
-
+	
 	<select id="selectMemberList" parameterType="map"
 		resultType="memberVO">
 		SELECT A.* FROM (
@@ -26,9 +26,11 @@
 		TB.*
 		FROM(
 		SELECT MEM_SEQ_NO, MEM_ID,
-		MEM_NAME, MEM_PWD, MEM_BIRTH, MEM_PHONE, MEM_EMAIL, MEM_ZIPCODE,
+		MEM_NAME, MEM_PWD, MEM_BIRTH, MEM_PHONE,
+		MEM_EMAIL, MEM_ZIPCODE,
 		MEM_ADDR_MASTER, MEM_ADDR_DETAIL
-		FROM TB_MEMBER WHERE 1=1
+		FROM TB_MEMBER
+		WHERE 1=1
 		<if test="searchWord != null and searchWord != ''">
 			<if test="searchType =='id'">
 				AND MEM_ID = #{searchWord}
@@ -41,18 +43,62 @@
 		MEM_SEQ_NO DESC
 		) TB,
 		(SELECT @ROWNUM := 0) R
-		)A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
+		)A WHERE A.ROWNUM
+		BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<!-- 회원정보 조회 -->
-	<select id="selectMember" parameterType="map" resultType="memberVO">
-		select 
+	<select id="selectMember" parameterType="map"
+		resultType="memberVO">
+		select
 		MEM_SEQ_NO, MEM_ID,
-		MEM_NAME, MEM_PWD, MEM_BIRTH, MEM_PHONE, MEM_EMAIL, MEM_ZIPCODE,
+		MEM_NAME, MEM_PWD, MEM_BIRTH, MEM_PHONE, MEM_EMAIL,
+		MEM_ZIPCODE,
 		MEM_ADDR_MASTER, MEM_ADDR_DETAIL, MEM_TYPE
 		from tb_member
 		where 1=1
 		<if test="mem_seq_no != null">
-		and mem_seq_no = #{mem_seq_no}</if>
+			and mem_seq_no = #{mem_seq_no}
+		</if>
+		<if test="mem_id != null and mem_id != ''">
+			and mem_id = #{mem_id}
+		</if>
 	</select>
+	
+	<insert id="insertMember" parameterType="memberVO">
+		insert into tb_member(
+		MEM_ID
+		, MEM_NAME
+		, MEM_PWD
+		, MEM_BIRTH
+		, MEM_PHONE
+		, MEM_EMAIL
+		, MEM_ZIPCODE
+		, MEM_ADDR_MASTER
+		, MEM_ADDR_DETAIL
+		) values(
+		#{mem_id}
+		, #{mem_name}
+		, #{mem_pwd}
+		, #{mem_birth}
+		, #{mem_phone}
+		, #{mem_email}
+		, #{mem_zipcode}
+		, #{mem_addr_master}
+		, #{mem_addr_detail}
+		)
+	</insert>
+	
+	<update id="updateMember" parameterType="memberVO">
+		update tb_member
+		set
+		mem_pwd = #{mem_pwd}
+		, mem_birth = #{mem_birth}
+		, mem_phone = #{mem_phone}
+		, mem_email = #{mem_email}
+		, mem_zipcode = #{mem_zipcode}
+		, mem_addr_master = #{mem_addr_master}
+		, mem_addr_detail = #{mem_addr_detail}
+		where mem_seq_no = #{mem_seq_no}
+	</update>
 </mapper>

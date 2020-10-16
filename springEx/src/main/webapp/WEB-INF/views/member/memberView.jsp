@@ -11,7 +11,7 @@
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>MEMBER VIEW</title>
 </head>
 <body>
 	<div class="container">
@@ -41,8 +41,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="button" value="수정" class="btn btn-default"> 
-				<input type="button" value="삭제" class="btn btn-default"> 
+				<td colspan="2">
+				<input type="button" value="수정" class="btn btn-default" onclick="location.href='memberForm?seqNo=${member.mem_seq_no}'"> 
+				<input type="button" value="삭제" class="btn btn-default" onclick="location.href='memberDelete?seqNo=${member.mem_seq_no}'"> 
 				<input type="button" value="목록" class="btn btn-default" onclick="location.href='memberList?currentPage=${currentPage}'">
 				</td></tr>
 		</table>

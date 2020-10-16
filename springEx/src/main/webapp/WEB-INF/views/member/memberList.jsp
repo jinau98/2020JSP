@@ -28,7 +28,7 @@ function goViewPage(seqNo, currentPage){		//목록 페이지로 돌아가기 구
 		frm.submit();
 	}
 </script>
-<title>Insert title here</title>
+<title>MEMBER LIST</title>
 </head>
 <body>
 	<div class="container">
@@ -52,7 +52,8 @@ function goViewPage(seqNo, currentPage){		//목록 페이지로 돌아가기 구
 				</span>
 			</p>
 		</form>
-
+		<br>
+		<input type="button" class="btn btn-default" onclick="location.href='memberForm'" value="회원가입"> 
 
 		<!-- 검색 폼 -->
 		<table class="table table-bordered table-hover">

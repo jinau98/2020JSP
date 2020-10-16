@@ -18,4 +18,8 @@ public interface MemberService {
 	public int getMemberCount(Map<String, Object> paramMap) throws Exception;
 
 	public MemberVO getMember(Map<String, Object> paramMap) throws Exception;
+	
+	public int insertMember(MemberVO member) throws Exception;
+
+	public int updateMember(MemberVO member) throws Exception;
 }
