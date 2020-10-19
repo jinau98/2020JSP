@@ -25,5 +25,6 @@ public interface MemberDAO {
 	public int updateMember(MemberVO member) throws Exception;
 	
 	//회원정보 삭제
+	public int deleteMember(int seqNo) throws Exception;
 	
 }

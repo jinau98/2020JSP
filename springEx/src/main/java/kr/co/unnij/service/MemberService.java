@@ -22,4 +22,6 @@ public interface MemberService {
 	public int insertMember(MemberVO member) throws Exception;
 
 	public int updateMember(MemberVO member) throws Exception;
+
+	public int deleteMember(int seqNo) throws Exception;
 }

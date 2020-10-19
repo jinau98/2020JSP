@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,59 +15,62 @@
 <script>
 	var duplicateCheck = false; //중복체크 필드
 
-	$(function(){
-		$("#btn_idCheck").click(function(){
-			
+	$(function() {
+		$("#btn_idCheck").click(function() {
+
 			fn_idCheck();
 		});
-		
-		function fn_idCheck(){
-			
+
+		function fn_idCheck() {
+
 			var frm = document.memberForm;
-			var params = {"mem_id" : frm.mem_id.value};
-			
-			if(frm.mem_id.value ==""){
+			var params = {
+				"mem_id" : frm.mem_id.value
+			};
+
+			if (frm.mem_id.value == "") {
 				alert("아이디를 입력하세요.");
 				return false;
 			}
-			
+
 			$.ajax({
 				type : 'post',
 				url : "memberExists",
 				data : params,
-				success : function(data, status){
-				duplicateCheck = data.result;
-				if(data.result == "true"){
-					$("#lbl_result").text("해당 아이디는 사용중 입니다.");
-					duplicateCheck = false;
-				}else{
-					$("#lbl_result").text("해당 아이디는 사용 가능합니다.");
-					duplicateCheck = true;
-				}
+				success : function(data, status) {
+					duplicateCheck = data.result;
+					if (data.result == "true") {
+						$("#lbl_result").text("해당 아이디는 사용중 입니다.");
+						duplicateCheck = false;
+					} else {
+						$("#lbl_result").text("해당 아이디는 사용 가능합니다.");
+						duplicateCheck = true;
+					}
 
-			},
-			error : function(error){
-				console.log(error);
-				console.log(error.status);
-			}
-		});
-	}
-});
-	
+				},
+				error : function(error) {
+					console.log(error);
+					console.log(error.status);
+				}
+			});
+		}
+	});
+
 	function doSubmit(type) {
-		  var frm = document.memberForm;
-	      if(type == 2){
-	         duplicateCheck = true;  
-	         frm.action="memberUpdate";
-	      }
-	      if(!validate){
-	         return false;
-	      }
-	      if(type == 1){
-	    	 frm.mem_seq_no.value=0;
-	         frm.action="memberInsert";
-	      }
-	      frm.submit();
+		var frm = document.memberForm;
+		if (type == 2) {
+			duplicateCheck = true;
+		}
+		if (!validate) {
+			return false;
+		}
+		if (type == 1) {
+			frm.mem_seq_no.value = 0;
+			frm.action = "memberInsert";
+		} else{
+			frm.action = "memberUpdate";
+		}
+		frm.submit();
 	}
 
 	function validate() {
@@ -117,8 +120,6 @@
 		}
 		return true;
 	}
-	
-	
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -169,7 +170,7 @@
 <body>
 	<div>
 		<form name="memberForm" method="post">
-			<input type="hidden" value="" name="mem_seq_no" value="${member.mem_seq_no == null ? 0 : member.mem_seq_no }"/>
+			<input type="hidden" name="mem_seq_no" value="${member.mem_seq_no}" />
 			<table class="table table-bordered">
 				<tr>
 					<td>이름</td>
@@ -178,8 +179,9 @@
 				</tr>
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="mem_id" size="20" value="${member.mem_id}" ${member.mem_id == null ? '': 'readonly'}> 
-					<c:if test="${member.mem_id ==null }">
+					<td><input type="text" name="mem_id" size="20"
+						value="${member.mem_id}" ${member.mem_id == null ? '': 'readonly'}>
+						<c:if test="${member.mem_id ==null }">
 							<button type="button" class="btn btn-default" id="btn_idCheck">ID
 								중복검사</button>
 				8~20자리 숫자와 영문자 조합<br>
@@ -217,22 +219,19 @@
 						size="5" value="${member.mem_zipcode }" readonly="readonly" />
 						<button type="button" class="btn btn-default"
 							onclick="execDaumPostcode();">우편번호 검색</button> <br> <br>
-						<input type="text" name="mem_addr_master" id="mem_addr_master" size="50"
-						value="${member.mem_addr_master}" readonly="readonly" /> <br>
-						<br> <input type="text" name="mem_addr_detail" id="mem_addr_detail" size="50"
-						value="${member.mem_addr_detail}" /></td>
+						<input type="text" name="mem_addr_master" id="mem_addr_master"
+						size="50" value="${member.mem_addr_master}" readonly="readonly" />
+						<br> <br> <input type="text" name="mem_addr_detail"
+						id="mem_addr_detail" size="50" value="${member.mem_addr_detail}" /></td>
 				</tr>
 				<tr>
-					<td colsapn="2">
-					<c:if test="${empty member.mem_id }">
+					<td colspan="2"><c:if test="${empty member.mem_id }">
 							<input type="button" value="가입하기" class="btn btn-default"
 								onclick="doSubmit(1);">
-						</c:if> 
-						<c:if test="${not empty member.mem_id }">
+						</c:if> <c:if test="${not empty member.mem_id }">
 							<input type="button" value="수정하기" class="btn btn-default"
 								onclick="doSubmit(2);">
-						</c:if> 
-						<input type="reset" value="취소" class="btn btn-default"> <input
+						</c:if> <input type="reset" value="취소" class="btn btn-default"> <input
 						type="button" value="목록" class="btn btn-default"
 						onclick="location.href='memberList'"></td>
 				</tr>

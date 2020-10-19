@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import kr.co.unnij.common.util.PagingUtil;
 import kr.co.unnij.member.model.MemberVO;
 import kr.co.unnij.service.MemberService;
@@ -25,6 +27,9 @@ import kr.co.unnij.service.MemberService;
 public class MemberController { // requestmapping 이용해서 하나의 컨트롤러 만으로 구분 가능 (EJB 방식에서는 다 각자 만들어줘야 했음)
 	@Autowired
 	MemberService memberService;
+
+	@Inject
+	PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/memberTest")
 	public String memberTest(Model model) throws Exception {
@@ -69,7 +74,8 @@ public class MemberController { // requestmapping 이용해서 하나의 컨트�
 
 	@RequestMapping(value = "/memberView")
 	public String memberView(@RequestParam(value = "seqNo", required = true) int seqNo,
-			@RequestParam(value = "currentPage", required = true, defaultValue = "1") int currentPage, Model model) throws Exception {
+			@RequestParam(value = "currentPage", required = true, defaultValue = "1") int currentPage, Model model)
+			throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mem_seq_no", seqNo);
 		MemberVO member = memberService.getMember(paramMap);
@@ -90,8 +96,8 @@ public class MemberController { // requestmapping 이용해서 하나의 컨트�
 		}
 
 		ModelAndView mav = new ModelAndView();
-		//Model addAttribute("member", member);
-		mav.addObject("member", member);			//회원정보가 있으면 jsp 출력 , 없으면 빈칸
+		// Model addAttribute("member", member);
+		mav.addObject("member", member); // 회원정보가 있으면 jsp 출력 , 없으면 빈칸
 		mav.setViewName("/member/memberForm");
 
 		return mav;
@@ -121,6 +127,10 @@ public class MemberController { // requestmapping 이용해서 하나의 컨트�
 		boolean isError = false;
 
 		try {
+			String enPwd = passwordEncoder.encode(member.getMem_pwd()); // 암호화 인코딩
+			member.setMem_pwd(enPwd); // 암호화된 값 넣어줌
+			System.out.println("암호화 : " + enPwd);
+
 			int updCnt = memberService.insertMember(member);
 
 			if (updCnt == 0) { // insert가 되지 않음
@@ -148,10 +158,16 @@ public class MemberController { // requestmapping 이용해서 하나의 컨트�
 
 	@RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
 	public String memberUpdate(MemberVO member, Model model) throws Exception {
+		System.out.println(member.getMem_seq_no());
+
 		// name = "mem_id" -> MemberVO mem_id
 		boolean isError = false;
-
+		System.out.println("컨트롤렁미");
 		try {
+			String enPwd = passwordEncoder.encode(member.getMem_pwd()); // 암호화 인코딩
+			member.setMem_pwd(enPwd); // 암호화된 값 넣어줌
+			System.out.println("암호화 : " + enPwd);
+			
 			int updCnt = memberService.updateMember(member);
 
 			if (updCnt == 0) { // update가 되지 않음
@@ -162,16 +178,47 @@ public class MemberController { // requestmapping 이용해서 하나의 컨트�
 			isError = true;
 		}
 
-		String viewPage = "redirect:/member/memberView?seqNo="+member.getMem_seq_no();		//redirect 요청과 응답 모두 새로 생성
+		String viewPage = "redirect:/member/memberView?seqNo=" + member.getMem_seq_no(); // redirect 요청과 응답 모두 새로 생성
 		String message = "회원정보 수정되었습니다.";
 
 		if (isError) {
 			message = "회원정보 수정 실패했습니다.";
 			model.addAttribute("isError", isError);
 			model.addAttribute("message", message);
-			viewPage ="/common/message";
-		}														//실패했을 때만 message로 이동, 성공하면 memberView로 이동
-		
+			viewPage = "/common/message";
+		} // 실패했을 때만 message로 이동, 성공하면 memberView로 이동
+
+		return viewPage;
+	}
+
+	@RequestMapping(value = "/member/memberDelete")
+	public String memberDelete(@RequestParam(value = "seqNo", required = true) int seqNo, Model model)
+			throws Exception {
+
+		// name = "mem_id" -> MemberVO mem_id
+		boolean isError = false;
+		System.out.println("컨트롤렁미");
+		try {
+			int updCnt = memberService.deleteMember(seqNo);
+
+			if (updCnt == 0) { // update가 되지 않음
+				isError = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+
+		String viewPage = "redirect:/member/memberList"; // redirect 요청과 응답 모두 새로 생성
+		String message = "회원정보 삭제되었습니다.";
+
+		if (isError) {
+			message = "회원정보 삭제 실패했습니다.";
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+			viewPage = "/common/message";
+		} // 실패했을 때만 message로 이동, 성공하면 memberView로 이동
+
 		return viewPage;
 	}
 }

@@ -14,8 +14,8 @@ import kr.co.unnij.service.MemberService;
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
-	MemberDAO memberDao;
-
+	MemberDAO memberDao;	
+	
 	public ArrayList<MemberVO> selectMemberTest() throws Exception {
 		return memberDao.selectMemberTest();
 	}
@@ -45,5 +45,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateMember(MemberVO member) throws Exception {
 		return memberDao.updateMember(member);
+	}
+
+	@Override
+	public int deleteMember(int seqNo) throws Exception {
+		return memberDao.deleteMember(seqNo);
 	}
 }

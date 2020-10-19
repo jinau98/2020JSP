@@ -23,6 +23,17 @@
 	
 	<context:component-scan base-package="kr.co.unnij" />
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/**"/>
+			<exclude-mapping path="/login/loginForm"/>
+			<exclude-mapping path="/login/login"/>
+			<exclude-mapping path="/login/logOut"/>
+			<exclude-mapping path="/member/memberForm"/>
+			<exclude-mapping path="/member/memberInsert"/>
+			<beans:bean class="kr.co.unnij.web.interceptor.LoginCheckInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
