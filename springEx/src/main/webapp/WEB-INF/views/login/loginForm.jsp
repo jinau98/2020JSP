@@ -5,9 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<script	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <meta charset="UTF-8">
 <script type="text/javascript">
 

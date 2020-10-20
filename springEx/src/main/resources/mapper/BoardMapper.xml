@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.unnij.board.dao.BoardDAO">
+	<select id="selectBoardCount" parameterType="map"
+		resultType="int">
+		select
+		count(*) as count
+		from
+		tb_board
+		where
+		bo_del_yn='N'
+		and
+		bo_type = #{bo_type}
+	</select>
+
+	<select id="selectBoardList" parameterType="map"
+		resultType="boardVo">
+		SELECT A.*
+		FROM( SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, TB.*
+		FROM ( SELECT
+		bo_seq_no
+		, bo_type
+		, bo_title
+		, bo_content
+		, bo_writer
+		, bo_writer_name
+		, hit_cnt
+		, bo_open_yn
+		, bo_del_yn
+		, reg_date
+		, reg_user
+		, upd_date
+		, upd_user
+		FROM
+		tb_board
+		WHERE
+		1=1
+		and bo_del_yn = 'N',
+		and bo_type = #{bo_type}
+		ORDER BY bo_seq_no DESC)TB,
+		(SELECT @ROWNUM := 0) R
+		) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+</mapper>

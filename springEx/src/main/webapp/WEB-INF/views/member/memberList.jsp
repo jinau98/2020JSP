@@ -5,12 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
 <script>
 function goViewPage(seqNo, currentPage){		//목록 페이지로 돌아가기 구현 위해서 currentPage도 같이 보내줌
 	location.href="memberView?seqNo="+seqNo+"&currentPage="+currentPage;

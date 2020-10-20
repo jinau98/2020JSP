@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>			<!-- Alias : 별칭 -->
 		<typeAlias type="kr.co.unnij.member.model.MemberVO" alias="memberVO"/>
+		<typeAlias type="kr.co.unnij.board.model.BoardVO" alias="boardVO"/>
 	</typeAliases>
 </configuration>
