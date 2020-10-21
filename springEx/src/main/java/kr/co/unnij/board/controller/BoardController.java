@@ -16,47 +16,57 @@ import kr.co.unnij.board.service.BoardService;
 import kr.co.unnij.common.util.PagingUtil;
 
 @Controller
-@RequestMapping(value="/board")
+@RequestMapping(value = "/board")
 public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-	
-	@RequestMapping(value="/boardList")
-	public String boardList(
-			@RequestParam(value = "searchType", required = false, defaultValue = "") String searchType,
+
+	@RequestMapping(value = "/boardList")
+	public String boardList(@RequestParam(value = "searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize, 
-			@RequestParam(value = "bo_type", required = true) String boType, 
-			Model model ) throws Exception{
-		
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+			@RequestParam(value = "bo_type", required = true) String boType, Model model) throws Exception {
+		System.out.println(searchType + " / " + searchWord);
 		int pageCount = 5;
 		int totalCount = 0;
-		
+
 		List<BoardVO> boardList = null;
-		
+
 		Map<String, String> paramMap = new HashMap<String, String>();
-		
-		if(!StringUtils.isAllBlank(searchType) && !StringUtils.isBlank(searchWord)) {
+
+		if (!StringUtils.isAllBlank(searchType) && !StringUtils.isBlank(searchWord)) {
 			paramMap.put("searchType", searchType);
 			paramMap.put("searchWord", searchWord);
 		}
 		paramMap.put("bo_type", boType);
-		
-		//페이징 처리 위한 총 게시글 구하기
+
+		// 페이징 처리 위한 총 게시글 구하기
 		totalCount = boardService.getBoardCount(paramMap);
-		
+
 		PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize, pageCount);
-		
+
 		paramMap.put("startRow", pagingUtil.getStartRow() + "");
 		paramMap.put("endRow", pagingUtil.getEndRow() + "");
-		
+
 		boardList = boardService.getBoardList(paramMap);
-		
+
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingUtil", pagingUtil);
-		
+
 		return "board/boardList";
+	}
+
+	@RequestMapping(value = "/boardView")
+	public String boardView(@RequestParam(value = "boSeqNo", required = true) int boSeqNo, Model model)
+			throws Exception {
+		BoardVO board = boardService.getBoard(boSeqNo);
+		
+		System.out.println(board.getBo_open_yn());
+		
+		model.addAttribute("board", board);
+		return "board/boardView";
+
 	}
 }

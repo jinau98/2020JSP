@@ -12,34 +12,92 @@
 		bo_del_yn='N'
 		and
 		bo_type = #{bo_type}
+		<if test="searchWord != null and searchWord != ''">
+			<if test="searchType =='01'">
+				AND bo_title LIKE concat('%', #{searchWord}, '%')
+			</if>
+			<if test="searchType =='02'">
+				AND bo_content LIKE concat('%', #{searchWord}, '%')
+			</if>
+			<if test="searchType =='03'">
+				AND bo_title LIKE concat('%', #{searchWord}, '%') OR bo_content LIKE concat('%', #{searchWord}, '%')
+			</if>
+			<if test="searchType =='04'">
+				AND bo_writer_name = #{searchWord}
+			</if>
+		</if>
 	</select>
 
 	<select id="selectBoardList" parameterType="map"
 		resultType="boardVo">
-		SELECT A.*
-		FROM( SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, TB.*
-		FROM ( SELECT
-		bo_seq_no
-		, bo_type
-		, bo_title
-		, bo_content
-		, bo_writer
-		, bo_writer_name
-		, hit_cnt
-		, bo_open_yn
-		, bo_del_yn
-		, reg_date
-		, reg_user
-		, upd_date
-		, upd_user
-		FROM
-		tb_board
-		WHERE
-		1=1
-		and bo_del_yn = 'N',
-		and bo_type = #{bo_type}
-		ORDER BY bo_seq_no DESC)TB,
-		(SELECT @ROWNUM := 0) R
-		) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
+		SELECT 
+			A.*
+		FROM( 
+			SELECT 
+				@ROWNUM := @ROWNUM + 1 AS ROWNUM, 
+				TB.*
+				FROM ( 
+				SELECT
+					bo_seq_no
+					, bo_type
+					, bo_title
+					, bo_content
+					, bo_writer
+					, bo_writer_name
+					, bo_hit_cnt
+					, bo_open_yn
+					, bo_del_yn
+					, reg_date
+					, reg_user
+					, upd_date
+					, upd_user
+					FROM
+						tb_board WHERE 1=1
+						and bo_del_yn = 'N'
+						and bo_type = #{bo_type}
+						<if test="searchWord != null and searchWord != ''">
+							<if test="searchType =='01'">
+								AND bo_title LIKE concat('%', #{searchWord}, '%')
+							</if>
+							<if test="searchType =='02'">
+								AND bo_content LIKE concat('%', #{searchWord}, '%')
+							</if>
+							<if test="searchType =='03'">
+								AND bo_title LIKE concat('%', #{searchWord}, '%') OR bo_content LIKE concat('%', #{searchWord}, '%')
+							</if>
+							<if test="searchType =='04'">
+								AND bo_writer_name = #{searchWord}
+							</if>
+						</if>
+					ORDER BY bo_seq_no DESC
+					) TB, (
+					SELECT @ROWNUM := 0) R
+					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
+	<select id="selectBoard" parameterType="int" resultType="boardVO">
+	
+		select
+				BO_SEQ_NO
+				, BO_TYPE
+				, BO_TITLE
+				, BO_CONTENT
+				, BO_WRITER
+				, BO_WRITER_NAME
+				, BO_HIT_CNT
+				, BO_OPEN_YN
+				, BO_DEL_YN
+				, REG_DATE
+				, REG_USER
+				, UPD_DATE
+		UPD_USER
+		from tb_board
+		where bo_seq_no=#{bo_seq_no}
+	</select>
+	
+	<update id="updateHitCnt" parameterType="int">
+		update tb_board set
+			bo_hit_cnt = bo_hit_cnt + 1
+		where bo_seq_no = #{bo_seq_no}
+	</update>
 </mapper>
