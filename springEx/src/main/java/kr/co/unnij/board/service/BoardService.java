@@ -14,4 +14,13 @@ public interface BoardService {
 	
 	//게시글 조회
 	public BoardVO getBoard(int boSeqNo) throws Exception;
+	
+	//게시글 등록
+	public int insertBoard(BoardVO board) throws Exception;
+	
+	//게시글 수정
+	public int updateBoard(BoardVO board) throws Exception;
+	
+	//게시글 삭제
+	public int deleteBoard(BoardVO board) throws  Exception;
 }

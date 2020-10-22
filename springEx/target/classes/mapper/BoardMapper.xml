@@ -100,4 +100,50 @@
 			bo_hit_cnt = bo_hit_cnt + 1
 		where bo_seq_no = #{bo_seq_no}
 	</update>
+	
+	<insert id="insertBoard" parameterType="boardVO">
+	insert into tb_board
+				(
+				 bo_type
+					, bo_title
+					, bo_content
+					, bo_writer
+					, bo_writer_name
+					, bo_hit_cnt
+					, bo_open_yn
+					, bo_del_yn
+					, reg_date
+					, reg_user
+				) values (
+					#{ bo_type}
+					, #{bo_title}
+					, #{bo_content}
+					, #{bo_writer}
+					, #{bo_writer_name}
+					, 0
+					, COALESCE(#{bo_open_yn}, 'N')				<!-- 값이 있으면 넣지만 없으면 N 입력 -->
+					, 'N'
+					, now()
+					, #{bo_writer}
+				)
+				
+	</insert>
+	<update id="updateBoard" parameterType="boardVO">
+		update tb_board set
+			bo_title = #{bo_title}
+			, bo_content = #{bo_content}
+			, bo_open_yn = #{bo_open_yn}
+			, upd_date = now()
+			, upd_user = #{upd_user}
+			where
+			bo_seq_no = #{bo_seq_no}
+	</update>
+	<update id="deleteBoard" parameterType="boardVO">
+		update tb_board set
+			bo_del_yn = 'Y'
+		,	upd_date = now()
+		,	upd_user = #{upd_user}
+			where
+			bo_seq_no = #{bo_seq_no}
+	</update>
 </mapper>

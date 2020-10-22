@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.unnij.board.model.BoardVO;
 import kr.co.unnij.board.service.BoardService;
 import kr.co.unnij.common.util.PagingUtil;
+import kr.co.unnij.member.model.MemberVO;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -67,6 +70,124 @@ public class BoardController {
 		
 		model.addAttribute("board", board);
 		return "board/boardView";
-
 	}
+	
+	@RequestMapping("/boardForm")
+	public String boardForm(
+			@RequestParam(value="boSeqNo", required=false, defaultValue="0") int boSeqNo, 
+			HttpSession session, 
+			Model model
+			) throws Exception{
+		BoardVO board = new BoardVO();
+		
+		if(boSeqNo != 0) {
+			//데이터 조회
+			board = boardService.getBoard(boSeqNo);
+		}else {
+			//입력
+			MemberVO member = (MemberVO) session.getAttribute("LOGIN_USER");
+			board.setBo_writer(member.getMem_id());
+			board.setBo_writer_name(member.getMem_name());
+		}
+		
+		model.addAttribute("board", board);
+		return "board/boardForm";
+	}
+	
+	@RequestMapping(value="boardInsert")
+	public String boardInsert(BoardVO board, Model model) throws Exception{
+		System.out.println("boardInsert");
+		boolean isError = false;
+		try {
+			int updCnt = boardService.insertBoard(board);
+			if(updCnt==0) {
+				isError = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		
+		String viewPage = "redirect:/board/boardList?bo_type=BBS";
+		String message = "글이 등록되었습니다.";
+		
+		if(isError) {
+			message = "글 등록에 실패했습니다.";
+			viewPage = "common/message";
+			model.addAttribute("message", message);
+			model.addAttribute("isError", isError);
+		}
+		
+		return viewPage;
+		}
+	
+	@RequestMapping(value="boardUpdate")
+	public String boardUpdate(BoardVO board, HttpSession session, Model model) throws Exception{
+		boolean isError = false;
+		
+		try {
+			MemberVO member = (MemberVO) session.getAttribute("LOGIN_USER");
+			board.setUpd_user(member.getMem_id());
+			
+			int updCnt = boardService.updateBoard(board);
+			
+			if(updCnt ==0) {
+				isError = true;
+			}
+			boardService.updateBoard(board);
+		}catch(Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		
+		String viewPage = "redirect:/board/boardView?boSeqNo="+board.getBo_seq_no();
+		String message = "글이 수정되었습니다.";
+		
+		if(isError) {
+			viewPage = "common/message";
+			message="글 수정에 실패했습니다.";
+			model.addAttribute("message", message);
+			model.addAttribute("isError", isError);
+		}
+		return viewPage;
+	}
+	
+	@RequestMapping(value="boardDelete")
+	public String boardDelete(
+			@RequestParam(value="boSeqNo", required=true) int seqNo
+			, Model model
+			, HttpSession session
+			) throws Exception{
+		boolean isError = false;
+		
+		try {
+			
+			MemberVO member = (MemberVO) session.getAttribute("LOGIN_USER");
+			
+			BoardVO board = new BoardVO();
+			board.setBo_seq_no(seqNo);
+			board.setUpd_user(member.getMem_id());
+			
+			int updCnt = boardService.deleteBoard(board);
+			
+			if(updCnt ==0) {
+				isError = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		String viewPage = "redirect:/board/boardList?bo_type=BBS";
+		String message = "글이 삭제되었습니다! 안녕~!";
+		
+		if(isError) {
+			viewPage = "common/message";
+			message="삭제 못했지롱ㅠㅠ";
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+		}
+		
+		return viewPage;
+	}
+	
 }

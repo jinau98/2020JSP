@@ -37,5 +37,20 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardDao.selectBoard(boSeqNo);
 	}
+
+	@Override
+	public int insertBoard(BoardVO board) throws Exception {
+		return boardDao.insertBoard(board);
+	}
+
+	@Override
+	public int updateBoard(BoardVO board) throws Exception {
+		return boardDao.updateBoard(board);
+	}
+
+	@Override
+	public int deleteBoard(BoardVO board) throws Exception {
+		return boardDao.deleteBoard(board);
+	}
 	
 }

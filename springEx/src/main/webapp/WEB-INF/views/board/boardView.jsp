@@ -6,10 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btnEdit').click(function(){
+		location.href="boardForm?boSeqNo="+${board.bo_seq_no};
+	});
+	$('#btnDelete').click(function(){
+		location.href="boardDelete?boSeqNo="+${board.bo_seq_no};
+	});
+});
+</script>
 </head>
 <body>
-
-
 <div class="container">
 	<h2 align="center">게시글 상세보기</h2>
 	
@@ -40,7 +48,8 @@
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td>${board.bo_content }</td>
+					<!-- 줄바꿈 적용 -->
+					<td style="white-space:pre;">${board.bo_content }</td>
 				</tr>				
 			</c:when>
 			<c:otherwise>
@@ -56,7 +65,7 @@
 			<input type="button" value="수정" class="btn btn-primary" id="btnEdit"/>
 			<input type="button" value="삭제" class="btn btn-primary" id="btnDelete"/>
 		</c:if>
-		<input type="button" value="목록" class="btn btn-primary" onclick="history.go(-1)"/>
+		<input type="button" value="목록" class="btn btn-primary" onclick="location.href='boardList?bo_type=BBS'"/>
 	</p>
 </div>
 </body>

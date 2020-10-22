@@ -25,7 +25,7 @@
 <div class="container">
 	<h2 align="center">게시글 목록</h2>
 	<p align="right">
-		<input type="button" value="글쓰기" class="btn btn-primary" onclick=""/>
+		<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='boardForm'"/>
 	</p>
 		<form name="searchForm" method="post">
 	<p align="center">

@@ -15,4 +15,11 @@ public interface BoardDAO {
 	//조회수 증가
 	public int updateHitCnt(int boSeqNo) throws Exception;
 	
+	//글쓰기
+	public int insertBoard(BoardVO board) throws Exception;
+	
+	//글 수정
+	public int updateBoard(BoardVO board) throws Exception;
+	
+	public int deleteBoard(BoardVO board) throws Exception;
 }
