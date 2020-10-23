@@ -15,22 +15,24 @@
 		}
 		
 		frm.currentPage.value = page;
-		frm.action = "boardList";
+		frm.action = "noticeList";
 		frm.submit();
 	}
 </script>
-<title>boardList</title>
+<title>noticeList</title>
 </head>
 <body>
 <div class="container">
-	<h2 align="center">게시글 목록</h2>
+	<h2 align="center">공지사항</h2>
+				<c:if test="${sessionScope.LOGIN_USER.mem_type == 'A' }">
+	
 	<p align="right">
-		<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='boardForm'"/>
-	</p>
+		<input type="button" value="공지 등록" class="btn btn-primary" onclick="location.href='noticeForm'"/>
+	</p></c:if>
 		<form name="searchForm" method="post">
 	<p align="center">
 			<input type="hidden" name="currentPage" value="${param.currentPage }" />		<!-- 커렌트페이지, 게시판 타입 값 히든으로 넘겨줌 -->
-			<input type="hidden" name="bo_type" value="BBS" />
+			<input type="hidden" name="bo_type" value="NOTICE" />
 			<select name="searchType">
 				<option value="">전체</option>
 				<option value="01" ${param.searchType =='01' ? 'selected' : '' }>제목</option>
@@ -66,8 +68,8 @@
 			<c:if test="${not empty boardList }">
 				<c:forEach var="board" items="${boardList }">
 				<tr>
-					<td>${board.rownum}</td>
-					<td><a href="boardView?boSeqNo=${board.bo_seq_no}">${board.bo_title }</a></td>
+					<td>${board.rownum }</td>
+					<td><a href="noticeView?boSeqNo=${board.bo_seq_no}">${board.bo_title }</a></td>
 					<td>${board.bo_writer_name }</td>
 					<td>${board.reg_date }</td>
 					<td>${board.bo_hit_cnt }</td>
@@ -76,11 +78,12 @@
 			</c:if>
 			<c:if test="${empty boardList }">
 				<tr>
-					<td colspan="5">게시글이 존재하지 않습니다.</td> 
+					<td colspan="5">공지사항이 존재하지 않습니다.</td> 
 				</tr>
 			</c:if>
 		</tbody>
 	</table>
+	
 	<div style="text-align:center;">
 		<ul class="pagination">
 			${pagingUtil.pageHtml}
@@ -88,6 +91,5 @@
 	</div>
 	<!-- 페이지 네비게이션 END -->
 </div>
-	
 </body>
 </html>

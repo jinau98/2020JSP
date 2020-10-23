@@ -47,7 +47,6 @@ function goViewPage(seqNo, currentPage){		//목록 페이지로 돌아가기 구
 			</p>
 		</form>
 		<br>
-		<input type="button" class="btn btn-default" onclick="login();" value="로그인"> 
 
 		<!-- 검색 폼 -->
 		<table class="table table-bordered table-hover">

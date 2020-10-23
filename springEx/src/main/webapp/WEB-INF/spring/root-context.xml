@@ -35,5 +35,7 @@
 		<tx:annotation-driven transaction-manager="transactionManager"/>
 		
 		<!-- Mapper Interface Scan -->
-		<mybatis-spring:scan base-package="kr.co.unnij.*.dao"/>	
+		<mybatis-spring:scan base-package="kr.co.unnij.*.dao"/>
+			
+		<context:component-scan base-package="kr.co.unnij.common.util"/>
 </beans>

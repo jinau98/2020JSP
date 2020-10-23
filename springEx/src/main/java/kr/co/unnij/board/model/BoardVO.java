@@ -1,6 +1,7 @@
 package kr.co.unnij.board.model;
 
 public class BoardVO {
+	private int rownum;
 	private int bo_seq_no;
 	private String bo_type;
 	private String bo_title;
@@ -15,6 +16,12 @@ public class BoardVO {
 	private String upd_date;
 	private String upd_user;
 	
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 	public int getBo_seq_no() {
 		return bo_seq_no;
 	}

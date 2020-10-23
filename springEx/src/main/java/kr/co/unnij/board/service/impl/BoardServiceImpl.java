@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return boardDao.selectBoardList(paramMap);
 	}
-
+	
 	@Transactional(isolation = Isolation.READ_COMMITTED)		//isolation 격리성 : 동시에 실행되는 쿼리가 있을 시 서로 영향이 미치지 않도록 격리시킴
 	@Override
 	public BoardVO getBoard(int boSeqNo) throws Exception {
@@ -40,6 +40,11 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int insertBoard(BoardVO board) throws Exception {
+		return boardDao.insertBoard(board);
+	}
+	
+	@Override
+	public int insertNotice(BoardVO board) throws Exception {
 		return boardDao.insertBoard(board);
 	}
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.unnij.file.dao.FileItemDAO"> 
+<select id="selectFileItemList" parameterType="map" resultType="int">
+	</select>
+	<select id="selectFileItem" parameterType="map" resultType="int">
+	</select>
+	<insert id="insertFileItem" parameterType="map" resultType="int"
+	</insert>
+	<delete id="deleteFileItem" pramaterType="map" resultType="int">
+	</delete>
+	
+	</delete>
+			
+		

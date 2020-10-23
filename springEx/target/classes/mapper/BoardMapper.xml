@@ -69,10 +69,10 @@
 								AND bo_writer_name = #{searchWord}
 							</if>
 						</if>
-					ORDER BY bo_seq_no DESC
+					ORDER BY bo_seq_no desc
 					) TB, (
 					SELECT @ROWNUM := 0) R
-					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
+					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow} order by A.rownum desc
 	</select>
 	
 	<select id="selectBoard" parameterType="int" resultType="boardVO">
@@ -146,4 +146,6 @@
 			where
 			bo_seq_no = #{bo_seq_no}
 	</update>
+	
+
 </mapper>

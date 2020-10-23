@@ -55,7 +55,7 @@
 		if (type == 2) {
 			duplicateCheck = true;
 		}
-		if (!validate) {
+		if (!validate()) {
 			return false;
 		}
 		if (type == 1) {

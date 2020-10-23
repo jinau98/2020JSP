@@ -45,6 +45,7 @@
 			<exclude-mapping path="/login/logOut" />
 			<exclude-mapping path="/member/memberForm" />
 			<exclude-mapping path="/member/memberInsert" />
+			<exclude-mapping path="/member/memberExists"/>
 			<beans:bean
 				class="kr.co.unnij.web.interceptor.LoginCheckInterceptor"></beans:bean>
 		</interceptor>

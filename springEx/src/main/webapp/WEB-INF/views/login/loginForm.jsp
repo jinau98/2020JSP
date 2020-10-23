@@ -19,9 +19,7 @@ $(document).ready(function(){
 });
 
 	
-	function login(){
-		alert("login");
-		
+	function login(){		
 		var frm = document.loginForm;
 	
 		if(!validate()){
@@ -62,7 +60,6 @@ $(document).ready(function(){
 		</tr>
 		<tr>
 		<td colspan="2"><input type="button" value="로그인" class="btn btn-default"/>
-		<input type="button" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/member/memberForm'" value="회원가입"> 
 </td>
 		</tr>
 	</table>
