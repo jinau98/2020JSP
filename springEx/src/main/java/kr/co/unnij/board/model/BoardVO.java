@@ -1,5 +1,9 @@
 package kr.co.unnij.board.model;
 
+import java.util.List;
+
+import kr.co.unnij.file.model.FileItem;
+
 public class BoardVO {
 	private int rownum;
 	private int bo_seq_no;
@@ -15,6 +19,7 @@ public class BoardVO {
 	private String reg_user;
 	private String upd_date;
 	private String upd_user;
+	private List<FileItem> fileList;
 	
 	public int getRownum() {
 		return rownum;
@@ -99,6 +104,12 @@ public class BoardVO {
 	}
 	public void setUpd_user(String upd_user) {
 		this.upd_user = upd_user;
+	}
+	public List<FileItem> getFileList() {
+		return fileList;
+	}
+	public void setFileList(List<FileItem> fileList) {
+		this.fileList = fileList;
 	}
 	
 	

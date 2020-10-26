@@ -47,6 +47,21 @@ $(document).ready(function(){
 					<td>${board.bo_open_yn == 'Y' ? '공개' : '비공개' }</td>
 				</tr>
 				<tr>
+					<td>첨부파일</td>
+					<td>
+						<c:if test="${board.fileList != null }">
+							<c:forEach var="fileItem" items="${board.fileList}">
+								<div>
+									<a href="#">${fileItem.file_name }</a> ${fileItem.file_fancy_size }
+								</div>
+							</c:forEach>
+						</c:if>
+						<c:if test="${board.fileList == null }">
+							파일이 없습니다.
+						</c:if>
+					</td>
+				</tr>
+				<tr>
 					<td>내용</td>
 					<!-- 줄바꿈 적용 -->
 					<td style="white-space:pre;">${board.bo_content }</td>

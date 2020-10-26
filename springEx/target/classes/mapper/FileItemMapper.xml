@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.co.unnij.file.dao.FileItemDAO"> 
-<select id="selectFileItemList" parameterType="map" resultType="int">
+<mapper namespace="kr.co.unnij.file.dao.FileItemDAO">
+	<select id="selectFileItemList" parameterType="map" resultType="fileItem">
+		select
+			file_seq_no
+			, ref_seq_no
+			, biz_type
+			, file_path
+			, file_name
+			, file_save_name
+			, file_size
+			, file_fancy_size
+			, file_down_cnt
+			, reg_date
+			, reg_user
+			, upd_date
+			, upd_user
+		from tb_file_item
+		where
+			ref_seq_no =#{ref_seq_no}
+			and biz_type = #{biz_type}
 	</select>
-	<select id="selectFileItem" parameterType="map" resultType="int">
+	<select id="selectFileItem">
 	</select>
-	<insert id="insertFileItem" parameterType="map" resultType="int"
+	<insert id="insertFileItem">
+		insert into tb_file_item(
+		ref_seq_no
+		, biz_type
+		, file_path
+		, file_name
+		, file_save_name
+		, file_size
+		, file_fancy_size
+		, file_down_cnt
+		, reg_date
+		, reg_user
+		, upd_date
+		, upd_user
+		)
+		values (
+		#{ref_seq_no}
+		, #{biz_type}
+		, #{file_path}
+		, #{file_name}
+		, #{file_save_name}
+		, #{file_size}
+		, #{file_fancy_size}
+		, #{file_down_cnt}
+		, now()
+		, #{reg_user}
+		, now()
+		, #{upd_user}
+		)
 	</insert>
-	<delete id="deleteFileItem" pramaterType="map" resultType="int">
+	<delete id="deleteFileItem">
 	</delete>
-	
-	</delete>
-			
+</mapper>
 		

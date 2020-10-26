@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.unnij.board.model.BoardVO;
 import kr.co.unnij.board.service.BoardService;
@@ -167,11 +168,11 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="boardInsert")
-	public String boardInsert(BoardVO board, Model model) throws Exception{
+	public String boardInsert(BoardVO board, MultipartHttpServletRequest mRequest, Model model) throws Exception{
 		System.out.println("boardInsert");
 		boolean isError = false;
 		try {
-			int updCnt = boardService.insertBoard(board);
+			int updCnt = boardService.insertBoard(board, mRequest);
 			if(updCnt==0) {
 				isError = true;
 			}
@@ -193,11 +194,11 @@ public class BoardController {
 		return viewPage;
 		}
 	@RequestMapping(value="noticeInsert")
-		public String notieceInsert(BoardVO board, Model model) throws Exception{
+		public String notieceInsert(BoardVO board, MultipartHttpServletRequest mRequest, Model model) throws Exception{
 			System.out.println("noticeInsert");
 			boolean isError = false;
 			try {
-				int updCnt = boardService.insertBoard(board);
+				int updCnt = boardService.insertBoard(board, mRequest);
 				if(updCnt==0) {
 					isError = true;
 				}

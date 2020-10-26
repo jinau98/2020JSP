@@ -72,7 +72,7 @@
 					ORDER BY bo_seq_no desc
 					) TB, (
 					SELECT @ROWNUM := 0) R
-					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow} order by A.rownum desc
+					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow} order by A.rownum
 	</select>
 	
 	<select id="selectBoard" parameterType="int" resultType="boardVO">
@@ -101,8 +101,13 @@
 		where bo_seq_no = #{bo_seq_no}
 	</update>
 	
-	<insert id="insertBoard" parameterType="boardVO">
-	insert into tb_board
+	<insert id="insertBoard" parameterType="boardVO" useGeneratedKeys="true" keyProperty="bo_seq_no">
+		<selectKey keyProperty="bo_seq_no" resultType="int" order="BEFORE" >
+			select
+				case count(*) when 0 then 1 else max(bo_seq_no) + 1 end as bo_seq_no
+			from tb_board
+		</selectKey>
+			insert into tb_board
 				(
 				 bo_type
 					, bo_title

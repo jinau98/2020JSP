@@ -3,6 +3,8 @@ package kr.co.unnij.board.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import kr.co.unnij.board.model.BoardVO;
 
 public interface BoardService {
@@ -16,7 +18,7 @@ public interface BoardService {
 	public BoardVO getBoard(int boSeqNo) throws Exception;
 	
 	//게시글 등록
-	public int insertBoard(BoardVO board) throws Exception;
+	public int insertBoard(BoardVO board, MultipartHttpServletRequest mRequest) throws Exception;
 	
 	//게시글 수정
 	public int updateBoard(BoardVO board) throws Exception;
