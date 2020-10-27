@@ -221,19 +221,18 @@ public class BoardController {
 			}
 	
 	@RequestMapping(value="boardUpdate")
-	public String boardUpdate(BoardVO board, HttpSession session, Model model) throws Exception{
+	public String boardUpdate(BoardVO board, MultipartHttpServletRequest mRequest, HttpSession session, Model model) throws Exception{
 		boolean isError = false;
 		
 		try {
 			MemberVO member = (MemberVO) session.getAttribute("LOGIN_USER");
 			board.setUpd_user(member.getMem_id());
 			
-			int updCnt = boardService.updateBoard(board);
-			
+			int updCnt = boardService.updateBoard(board, mRequest);
 			if(updCnt ==0) {
 				isError = true;
 			}
-			boardService.updateBoard(board);
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			isError = true;
@@ -259,12 +258,12 @@ public class BoardController {
 			MemberVO member = (MemberVO) session.getAttribute("LOGIN_USER");
 			board.setUpd_user(member.getMem_id());
 			
-			int updCnt = boardService.updateBoard(board);
+			int updCnt = boardService.updateBoard(board, null);
 			
 			if(updCnt ==0) {
 				isError = true;
 			}
-			boardService.updateBoard(board);
+			boardService.updateBoard(board, null);
 		}catch(Exception e) {
 			e.printStackTrace();
 			isError = true;

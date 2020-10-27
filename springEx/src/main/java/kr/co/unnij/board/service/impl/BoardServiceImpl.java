@@ -76,8 +76,28 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.insertBoard(board);
 	}
 
+	@Transactional
 	@Override
-	public int updateBoard(BoardVO board) throws Exception {
+	public int updateBoard(BoardVO board, MultipartHttpServletRequest mRequest) throws Exception {
+		String[] delFileSeq = board.getDelFileSeq();
+		
+		try {
+			if(delFileSeq != null) {
+				for(int i=0; i<delFileSeq.length; i++) {
+					Map<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("delFileSeq", delFileSeq[i]);
+					
+					fileItemDao.deleteFileItem(paramMap);
+				}
+			}
+			List<FileItem> fileList = fileUtils.uploadFiles(board, mRequest);
+			for(FileItem fileItem : fileList) {
+				fileItemDao.insertFileItem(fileItem);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return boardDao.updateBoard(board);
 	}
 

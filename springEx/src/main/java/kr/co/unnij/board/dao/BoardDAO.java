@@ -3,6 +3,8 @@ package kr.co.unnij.board.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import kr.co.unnij.board.model.BoardVO;
 
 public interface BoardDAO {

@@ -50,6 +50,11 @@
    		$(this).parent().remove();
       });
    	
+   	//파일 삭제
+   	$(".btn-delete-exist").click(function(){
+   		$(this).parent().html('<input type="hidden" name="delFileSeq" value="'+$(this).data("file_seq_no") + '">');
+   	});
+   	
    	function checkFiles(){
    		var regex = new RegExp("(.*?)\.(exe|sh|alz|zip)$");	//업로드 불가능한 확장자 체크하는 정규식
    		var maxSize = 10485760;	//파일의 최대 사이즈, 10mb
@@ -126,8 +131,15 @@
 				</tr>
 				<tr>
 					<td>첨부파일</td>
+					<!-- 수정 시 업로드된 파일 목록 -->
 					<td><p><button type = "button" class="btn btn-primary btn-xs btn-new-file">추가</button></p>
 					<div id="fileList">
+					<c:forEach var="fileItem" items="${board.fileList }">
+						<div>
+							<a href="${pageContext.request.contextPath}/common/download?file_seq_no=${fileItem.file_seq_no}">${fileItem.file_name }</a> ${fileItem.file_fancy_size }
+							<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no="${fileItem.file_seq_no}">x</button>		<!-- data라는 속성을 사용해서 file_seq_no라는 값을 전달한다 -->
+						</div>
+					</c:forEach>
 						<div>
 							<input type="file" name="uploadFiles" id="uploadFiles" multiple="multiple">
 							<button type="button" class="btn btn-primary btn-xs btn-delete-file">x</button>

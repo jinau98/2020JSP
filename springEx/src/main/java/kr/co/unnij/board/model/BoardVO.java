@@ -20,6 +20,7 @@ public class BoardVO {
 	private String upd_date;
 	private String upd_user;
 	private List<FileItem> fileList;
+	private String[] delFileSeq;
 	
 	public int getRownum() {
 		return rownum;
@@ -110,6 +111,12 @@ public class BoardVO {
 	}
 	public void setFileList(List<FileItem> fileList) {
 		this.fileList = fileList;
+	}
+	public String[] getDelFileSeq() {
+		return delFileSeq;
+	}
+	public void setDelFileSeq(String[] delFileSeq) {
+		this.delFileSeq = delFileSeq;
 	}
 	
 	

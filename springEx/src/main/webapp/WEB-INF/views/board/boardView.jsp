@@ -52,7 +52,7 @@ $(document).ready(function(){
 						<c:if test="${board.fileList != null }">
 							<c:forEach var="fileItem" items="${board.fileList}">
 								<div>
-									<a href="#">${fileItem.file_name }</a> ${fileItem.file_fancy_size }
+									<a href="${pageContext.request.contextPath}/common/download?file_seq_no=${fileItem.file_seq_no}">${fileItem.file_name }</a> ${fileItem.file_fancy_size }
 								</div>
 							</c:forEach>
 						</c:if>

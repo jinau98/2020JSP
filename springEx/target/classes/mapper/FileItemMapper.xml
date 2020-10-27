@@ -22,8 +22,27 @@
 			ref_seq_no =#{ref_seq_no}
 			and biz_type = #{biz_type}
 	</select>
-	<select id="selectFileItem">
+	
+	<select id="selectFileItem" parameterType="map" resultType="fileItem">
+		select
+			file_seq_no
+			, ref_seq_no
+			, biz_type
+			, file_path
+			, file_name
+			, file_save_name
+			, file_size
+			, file_fancy_size
+			, file_down_cnt
+			, reg_date
+			, reg_user
+			, upd_date
+			, upd_user
+		from tb_file_item
+		where
+			file_seq_no =#{file_seq_no}
 	</select>
+	
 	<insert id="insertFileItem">
 		insert into tb_file_item(
 		ref_seq_no
@@ -54,7 +73,9 @@
 		, #{upd_user}
 		)
 	</insert>
-	<delete id="deleteFileItem">
+	
+	<delete id="deleteFileItem" parameterType="map">
+	delete from tb_file_item where file_seq_no = #{delFileSeq}
 	</delete>
 </mapper>
 		

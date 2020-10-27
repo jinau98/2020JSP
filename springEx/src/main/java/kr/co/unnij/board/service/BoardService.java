@@ -21,7 +21,7 @@ public interface BoardService {
 	public int insertBoard(BoardVO board, MultipartHttpServletRequest mRequest) throws Exception;
 	
 	//게시글 수정
-	public int updateBoard(BoardVO board) throws Exception;
+	public int updateBoard(BoardVO board, MultipartHttpServletRequest mRequest) throws Exception;
 	
 	//게시글 삭제
 	public int deleteBoard(BoardVO board) throws  Exception;
