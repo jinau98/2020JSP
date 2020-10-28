@@ -40,7 +40,7 @@
       $(".btn-new-file", $frm).click(function(){
    	   $("#fileList").append(
    			'<div>'+
-			'<input type="file" name="uploadFiles" id="uploadFiles" multiple="multiple">'+
+			'<input type="file" name="uploadFiles" id="uploadFiles" multiple="multiple" style="display:inline-block;">'+
 			'<button type="button" class="btn btn-primary btn-xs btn-delete-file">x</button>'+
 		'</div>'
    	   );
@@ -141,7 +141,7 @@
 						</div>
 					</c:forEach>
 						<div>
-							<input type="file" name="uploadFiles" id="uploadFiles" multiple="multiple">
+							<input type="file" name="uploadFiles" id="uploadFiles" multiple="multiple" style="display:inline-block;">
 							<button type="button" class="btn btn-primary btn-xs btn-delete-file">x</button>
 						</div>
 					</div>

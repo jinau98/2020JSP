@@ -21,13 +21,12 @@ import kr.co.unnij.member.model.MemberVO;
 
 @Controller
 @RequestMapping(value = "/board")
-public class BoardController {
-
+public class NoticeContoller {
 	@Autowired
 	BoardService boardService;
-
-	@RequestMapping(value = "/boardList")
-	public String boardList(@RequestParam(value = "searchType", required = false, defaultValue = "") String searchType,
+	
+	@RequestMapping(value = "/noticeList")
+	public String noticeList(@RequestParam(value = "searchType", required = false, defaultValue = "") String searchType,
 			@RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
@@ -59,25 +58,22 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingUtil", pagingUtil);
 
-		return "board/boardList";
+		return "board/noticeList";
 	}
 	
-
-	@RequestMapping(value = "/boardView")
-	public String boardView(@RequestParam(value = "boSeqNo", required = true) int boSeqNo, Model model)
+	@RequestMapping(value = "/noticeView")
+	public String noticeView(@RequestParam(value = "boSeqNo", required = true) int boSeqNo, Model model)
 			throws Exception {
 		BoardVO board = boardService.getBoard(boSeqNo);
 		
 		System.out.println(board.getBo_open_yn());
 		
 		model.addAttribute("board", board);
-		return "board/boardView";
+		return "board/noticeView";
 	}
 	
-	
-	
-	@RequestMapping("/boardForm")
-	public String boardForm(
+	@RequestMapping("/noticeForm")
+	public String noticeForm(
 			@RequestParam(value="boSeqNo", required=false, defaultValue="0") int boSeqNo, 
 			HttpSession session, 
 			Model model
@@ -95,16 +91,12 @@ public class BoardController {
 		}
 		
 		model.addAttribute("board", board);
-		return "board/boardForm";
+		return "board/noticeForm";
 	}
 	
-	
-	
-
-	
-	@RequestMapping(value="boardInsert")
-	public String boardInsert(BoardVO board, MultipartHttpServletRequest mRequest, Model model) throws Exception{
-		System.out.println("boardInsert");
+	@RequestMapping(value="noticeInsert")
+	public String notieceInsert(BoardVO board, MultipartHttpServletRequest mRequest, Model model) throws Exception{
+		System.out.println("noticeInsert");
 		boolean isError = false;
 		try {
 			int updCnt = boardService.insertBoard(board, mRequest);
@@ -116,7 +108,7 @@ public class BoardController {
 			isError = true;
 		}
 		
-		String viewPage = "redirect:/board/boardList?bo_type=BBS";
+		String viewPage = "redirect:/board/noticeList?bo_type=NOTICE";
 		String message = "글이 등록되었습니다.";
 		
 		if(isError) {
@@ -129,9 +121,8 @@ public class BoardController {
 		return viewPage;
 		}
 	
-	
-	@RequestMapping(value="boardUpdate")
-	public String boardUpdate(BoardVO board, MultipartHttpServletRequest mRequest, HttpSession session, Model model) throws Exception{
+	@RequestMapping(value="noticeUpdate")
+	public String noticeUpdate(BoardVO board, MultipartHttpServletRequest mRequest, HttpSession session, Model model) throws Exception{
 		boolean isError = false;
 		
 		try {
@@ -139,16 +130,16 @@ public class BoardController {
 			board.setUpd_user(member.getMem_id());
 			
 			int updCnt = boardService.updateBoard(board, mRequest);
+			
 			if(updCnt ==0) {
 				isError = true;
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			isError = true;
 		}
 		
-		String viewPage = "redirect:/board/boardView?boSeqNo="+board.getBo_seq_no();
+		String viewPage = "redirect:/board/noticeView?boSeqNo="+board.getBo_seq_no();
 		String message = "글이 수정되었습니다.";
 		
 		if(isError) {
@@ -160,10 +151,8 @@ public class BoardController {
 		return viewPage;
 	}
 	
-	
-	
-	@RequestMapping(value="boardDelete")
-	public String boardDelete(
+	@RequestMapping(value="noticeDelete")
+	public String noticeDelete(
 			@RequestParam(value="boSeqNo", required=true) int seqNo
 			, Model model
 			, HttpSession session
@@ -187,7 +176,7 @@ public class BoardController {
 			e.printStackTrace();
 			isError = true;
 		}
-		String viewPage = "redirect:/board/boardList?bo_type=BBS";
+		String viewPage = "redirect:/board/noticeList?bo_type=NOTICE";
 		String message = "글이 삭제되었습니다! 안녕~!";
 		
 		if(isError) {
@@ -199,7 +188,5 @@ public class BoardController {
 		
 		return viewPage;
 	}
-	
-	
-	
+
 }

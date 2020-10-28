@@ -71,10 +71,6 @@ public class BoardServiceImpl implements BoardService{
 		return updCnt;
 	}
 	
-	@Override
-	public int insertNotice(BoardVO board) throws Exception {
-		return boardDao.insertBoard(board);
-	}
 
 	@Transactional
 	@Override
