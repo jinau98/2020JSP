@@ -17,6 +17,7 @@
 			, reg_user
 			, upd_date
 			, upd_user
+			, thumb_save_name
 		from tb_file_item
 		where
 			ref_seq_no =#{ref_seq_no}
@@ -38,6 +39,7 @@
 			, reg_user
 			, upd_date
 			, upd_user
+			, thumb_save_name
 		from tb_file_item
 		where
 			file_seq_no =#{file_seq_no}
@@ -57,6 +59,7 @@
 		, reg_user
 		, upd_date
 		, upd_user
+		, thumb_save_name
 		)
 		values (
 		#{ref_seq_no}
@@ -71,6 +74,7 @@
 		, #{reg_user}
 		, now()
 		, #{upd_user}
+		, #{thumb_save_name}
 		)
 	</insert>
 	

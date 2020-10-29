@@ -101,5 +101,11 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteBoard(BoardVO board) throws Exception {
 		return boardDao.deleteBoard(board);
 	}
+
+	@Override
+	public List<BoardVO> getGalleryList(Map<String, String> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.selectGalleryList(paramMap);
+	}
 	
 }

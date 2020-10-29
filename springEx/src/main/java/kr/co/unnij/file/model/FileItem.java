@@ -14,6 +14,7 @@ public class FileItem {
 	private String reg_user;
 	private String upd_date;
 	private String upd_user;
+	private String thumb_save_name;
 	
 	
 	public int getFile_seq_no() {
@@ -93,6 +94,12 @@ public class FileItem {
 	}
 	public void setUpd_user(String upd_user) {
 		this.upd_user = upd_user;
+	}
+	public String getThumb_save_name() {
+		return thumb_save_name;
+	}
+	public void setThumb_save_name(String thumb_save_name) {
+		this.thumb_save_name = thumb_save_name;
 	}
 	
 }

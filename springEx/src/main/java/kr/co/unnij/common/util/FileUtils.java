@@ -1,6 +1,8 @@
 package kr.co.unnij.common.util;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
+
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -49,6 +54,9 @@ public class FileUtils {
 	            		file.mkdirs();
 	            	}
 	            	parts.transferTo(file);
+	            	
+	            	String ext=parts.getOriginalFilename().substring(parts.getOriginalFilename().lastIndexOf(".")+1);
+	            	 
 	            }catch(Exception e) {
 	            	e.printStackTrace();
 	            }
@@ -60,7 +68,6 @@ public class FileUtils {
 	      
 	      return fileList;
 	   }
-	   
 	   //파일 사이즈 연산 메소드
 	   public static String getFancySize(long size) {
 	      String fancy = "";
@@ -73,6 +80,24 @@ public class FileUtils {
 	         fancy = decimalFormat.format(size / (1024.0 * 1024.0)) + "Mb";
 	      }
 	      return fancy;
+	   }
+	   
+	   private String createThumbnail(String path, String fileName, String ext) {
+		   BufferedImage sourceImg;
+		   String thumbnailName="";
+		   
+		   try {
+			   sourceImg = ImageIO.read(new File(filePath + File.separator + path, fileName));
+			   
+			   BufferedImage destImg = Scalr.resize(sourceImg,  Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 150);
+			   thumbnailName = filePath + File.separator + path + File.separator + "thumb_" + fileName;
+			   
+			   File file = new File(thumbnailName);
+			   ImageIO.write(destImg, ext, file);
+		   }catch(IOException e) {
+			   e.printStackTrace();
+		   }
+		   return "thumb_" + fileName;
 	   }
 	   
 

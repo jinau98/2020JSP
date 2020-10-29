@@ -24,7 +24,6 @@
     <fullyQualifiedTypeName name="org.springframework.web.servlet.handler.HandlerInterceptorAdapter"/>
     <fullyQualifiedTypeName name="kr.co.unnij.board.dao.BoardDAO"/>
     <fullyQualifiedTypeName name="org.apache.ibatis.binding.MapperMethod.ParamMap"/>
-    <fullyQualifiedTypeName name="kr.co.unnij.board.service.BoardService"/>
     <fullyQualifiedTypeName name="freemarker.template.utility.StringUtil"/>
     <fullyQualifiedTypeName name="org.apache.commons.lang3.StringUtils"/>
     <fullyQualifiedTypeName name="sun.tools.java.Package"/>
@@ -43,8 +42,6 @@
     <fullyQualifiedTypeName name="kr.co.unnij.board.model.BoardVO"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="kr.co.unnij.file.dao.FileItemDAO"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
@@ -54,10 +51,13 @@
     <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="kr.co.unnij.file.model.FileItem"/>
     <fullyQualifiedTypeName name="java.net.URLEncoder"/>
-    <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartHttpServletRequest"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="kr.co.unnij.board.service.BoardService"/>
+    <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartHttpServletRequest"/>
 </qualifiedTypeNameHistroy>

@@ -17,7 +17,7 @@
 			</c:if>
 			<li><a href="${pageContext.request.contextPath }/board/boardList?bo_type=BBS">게시판</a></li>
 			<li><a href="${pageContext.request.contextPath }/board/noticeList?bo_type=NOTICE">공지사항</a></li>
-			<li><a href="#">자료실</a></li>
+			<li><a href="${pageContext.request.contextPath }/board/galleryList?bo_type=GALLERY">자료실</a></li>
 			<li>
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 				role="button" aria-haspopup="true" aria-expanded="false">			<!-- 드롭다운 메뉴 예제 -->

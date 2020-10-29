@@ -24,5 +24,7 @@ public interface BoardDAO {
 	public int updateBoard(BoardVO board) throws Exception;
 	
 	public int deleteBoard(BoardVO board) throws Exception;
+	
+	public List<BoardVO> selectGalleryList(Map<String, String> paramMap) throws Exception;
 
 }

@@ -21,6 +21,7 @@ public class BoardVO {
 	private String upd_user;
 	private List<FileItem> fileList;
 	private String[] delFileSeq;
+	private String file_seq_no;
 	
 	public int getRownum() {
 		return rownum;
@@ -117,6 +118,12 @@ public class BoardVO {
 	}
 	public void setDelFileSeq(String[] delFileSeq) {
 		this.delFileSeq = delFileSeq;
+	}
+	public String getFile_seq_no() {
+		return file_seq_no;
+	}
+	public void setFile_seq_no(String file_seq_no) {
+		this.file_seq_no = file_seq_no;
 	}
 	
 	

@@ -25,5 +25,7 @@ public interface BoardService {
 	
 	//게시글 삭제
 	public int deleteBoard(BoardVO board) throws  Exception;
+	
+	public List<BoardVO> getGalleryList(Map<String, String> paramMap) throws Exception;
 
 }
