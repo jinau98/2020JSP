@@ -15,6 +15,10 @@ $(document).ready(function(){
 		location.href="galleryDelete?boSeqNo="+${board.bo_seq_no};
 	});
 });
+
+function viewImage(fileSeqNo){
+	window.open("${pageContext.request.contextPath}/common/display?imgType=img&file_seq_no="+fileSeqNo+", height=" +screen.height + ", width=" + screen.width + ", location=no, menubar=no, status=no, toolbar=no, fullscreen=yes");
+}
 </script>
 </head>
 <body>
@@ -64,8 +68,17 @@ $(document).ready(function(){
 				<tr>
 					<td>내용</td>
 					<!-- 줄바꿈 적용 -->
-					<td style="white-space:pre;">${board.bo_content }</td>
-				</tr>				
+					<td style="white-space:pre;">${board.bo_content }
+						<c:if test="${not empty board.fileList }">
+							<c:forEach var="fileItem" items="${board.fileList }">
+							<img class="img-thumbnail" style="width : 150px; height : 150px;" src="${pageContext.request.contextPath }/common/display?file_seq_no=${fileItem.file_seq_no}" onclick="viewImage(${fileItem.file_seq_no});"/>
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty board.fileList }">
+							첨부파일이 없습니다.
+						</c:if>
+					</td>
+				</tr>			
 			</c:when>
 			<c:otherwise>
 				<tr>

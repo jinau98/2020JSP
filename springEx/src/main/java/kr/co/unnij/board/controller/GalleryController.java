@@ -69,7 +69,7 @@ public class GalleryController {
 		System.out.println(board.getBo_open_yn());
 		
 		model.addAttribute("board", board);
-		return "board/galleryList";
+		return "board/galleryView";
 	}
 	
 	@RequestMapping("/galleryForm")
@@ -108,7 +108,7 @@ public class GalleryController {
 			isError = true;
 		}
 		
-		String viewPage = "redirect:/board/galleryList?bo_type=gallery";
+		String viewPage = "redirect:/board/galleryList?bo_type=GALLERY";
 		String message = "글이 등록되었습니다.";
 		
 		if(isError) {

@@ -84,8 +84,9 @@ public class CommonController {
 			if(mediaType != null) {
 				if(!StringUtils.isEmpty(imgType) && imgType.equals("img")) {
 					input = new FileInputStream(FileUtils.filePath + "/" + fileItem.getFile_path() + "/" + fileItem.getFile_save_name());
-				}
-				
+				}else {
+		            input= new FileInputStream(FileUtils.filePath + "/" +fileItem.getFile_path()+"/"+fileItem.getThumb_save_name());
+	            }				
 				header.setContentType(mediaType);
 				
 				entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(input), header,  HttpStatus.CREATED);

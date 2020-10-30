@@ -60,6 +60,11 @@
    		var maxSize = 10485760;	//파일의 최대 사이즈, 10mb
    		var files = $("input[name='uploadFiles']")[0].files;
    		
+   		if( (!$("input[name='uploadFiles']").length ||!$("input[name='uploadFiles']").val()) && !$("#files").length){
+	 		  alert("이미지를 하나 이상 업로드해주세요.");
+	  			 return false;
+   		}
+   		
    		for(var i=0; i<files.length; i++){
    			var fileName = files[i].name;
    			var fileSize = files[i].size;
@@ -135,10 +140,15 @@
 					<td><p><button type = "button" class="btn btn-primary btn-xs btn-new-file">추가</button></p>
 					<div id="fileList">
 					<c:forEach var="fileItem" items="${board.fileList }">
-						<div>
+					<c:if test="${empty fileItem.file_seq_no}">                           
+                           <p></p>
+                        </c:if>
+                         <c:if test="${not empty fileItem.file_seq_no}">
+						<p id="files">
 							<a href="${pageContext.request.contextPath}/common/download?file_seq_no=${fileItem.file_seq_no}">${fileItem.file_name }</a> ${fileItem.file_fancy_size }
 							<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no="${fileItem.file_seq_no}">x</button>		<!-- data라는 속성을 사용해서 file_seq_no라는 값을 전달한다 -->
-						</div>
+						</p>
+						</c:if>
 					</c:forEach>
 						<div>
 							<input type="file" name="uploadFiles" id="uploadFiles" multiple="multiple" style="display:inline-block;">

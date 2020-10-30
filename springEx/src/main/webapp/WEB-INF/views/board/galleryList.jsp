@@ -30,7 +30,7 @@
 		<form name="searchForm" method="post">
 	<p align="center">
 			<input type="hidden" name="currentPage" value="${param.currentPage }" />		<!-- 커렌트페이지, 게시판 타입 값 히든으로 넘겨줌 -->
-			<input type="hidden" name="bo_type" value="BBS" />
+			<input type="hidden" name="bo_type" value="GALLERY" />
 			<select name="searchType">
 				<option value="">전체</option>
 				<option value="01" ${param.searchType =='01' ? 'selected' : '' }>제목</option>
@@ -53,36 +53,27 @@
 		</form>
 	
 	<table class="table table-bordered table-hover">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
 		<tbody>
 			<c:if test="${not empty galleryList }">
-				<c:forEach var="gallery" items="${galleryList }">
+				<c:forEach var="board" items="${galleryList }">
 				<tr>
 					<td rowspan="5" style="text-align:center;">
-						<a href="galleryView?boSeqNo=${gallery.bo_seq_no}">
-							<img class="img-thumbnail" style="width : 150px; height : 150px;" src="${pageContext.request.contextPath }/common/display?file_seq_no=${gallery.file_seq_no}"/>
+						<a href="galleryView?boSeqNo=${board.bo_seq_no}">
+							<img class="img-thumbnail" style="width : 150px; height : 150px;" src="${pageContext.request.contextPath }/common/display?file_seq_no=${board.file_seq_no}"/>
 						</a>
 					</td>
 				</tr>
 				<tr>
-					<td><a href="galleryView?boSeqNo=${gallery.bo_seq_no}">${gallery.bo_title }</a></td>
+					<td><a href="galleryView?boSeqNo=${board.bo_seq_no}">${board.bo_title }</a></td>
 					</tr>
 				<tr>
-					<td>${gallery.bo_writer_name }</td>
+					<td>${board.bo_writer_name }</td>
 					</tr>
 				<tr>
-					<td>${gallery.reg_date }</td>
+					<td>${board.reg_date }</td>
 					</tr>
 				<tr>
-					<td>${gallery.bo_hit_cnt }</td>
+					<td>${board.bo_hit_cnt }</td>
 				</tr>
 				</c:forEach>
 			</c:if>

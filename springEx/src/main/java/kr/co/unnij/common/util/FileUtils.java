@@ -52,10 +52,15 @@ public class FileUtils {
 	            	file = new File(filePath + "/" + fileItem.getFile_path() + "/" + fileItem.getFile_save_name());
 	            	if(file.exists() == false) {
 	            		file.mkdirs();
-	            	}
+	                     }
 	            	parts.transferTo(file);
 	            	
 	            	String ext=parts.getOriginalFilename().substring(parts.getOriginalFilename().lastIndexOf(".")+1);
+	            	
+	            	if(MediaUtils.getMediaType(ext) != null && "GALLERY".equals(fileItem.getBiz_type())) {
+	                    String thumbSaveName = createThumbnail(fileItem.getFile_path(), fileItem.getFile_save_name(), ext);
+	                    fileItem.setThumb_save_name(thumbSaveName);
+	                 }
 	            	 
 	            }catch(Exception e) {
 	            	e.printStackTrace();
